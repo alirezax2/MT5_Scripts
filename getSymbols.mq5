@@ -12,11 +12,16 @@
 //  This script export list of all tickers avialable for selected broker to a csv file with shortable attribute
 //+------------------------------------------------------------------+
 string Ticker, PatternLine;
+string csvfile = "Symbols.csv";
 
 void OnStart()
   {
 // Open output csv file
-   int filepointer  = FileOpen( "Symbols.csv" , FILE_READ|FILE_WRITE|FILE_TXT|FILE_COMMON);
+   if (FileIsExist(csvfile))
+   {
+      FileDelete(csvfile);
+   };
+   int filepointer  = FileOpen( csvfile , FILE_READ|FILE_WRITE|FILE_TXT|FILE_UNICODE);
 //Number of all avialable Ticker including Options, Stock, Bonds, Forex, OTC, Commodity and etc   
    int nTickerAll = SymbolsTotal(false);
 
@@ -45,4 +50,5 @@ void OnStart()
    FileClose(filepointer);
  
   }
+
 //+------------------------------------------------------------------+
